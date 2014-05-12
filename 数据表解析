@@ -1,0 +1,4 @@
+uid：用户主键
+cid：
+tid：帖子topic主题主键
+pid：帖子post内容主键
