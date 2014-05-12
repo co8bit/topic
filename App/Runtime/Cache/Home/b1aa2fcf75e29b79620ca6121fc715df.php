@@ -80,41 +80,42 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
 <div class="container">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a href="<?php echo U('topic/index');?>">话题</a>
-            </li>
-            <li class="active">创建话题</li>
+            <li><a href="<?php echo U('topic/index');?>">话题</a></li>
+            <li class="active">编辑话题</li>
         </ol>
         <div class="col-md-9">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3>创建话题</h3>
+                    <h3>编辑话题</h3>
                 </div>
                 <div class="panel-body">
-                    <form id="talk-add" action="" method="post" class="form-horizontal">
+                    <form id="talk-edit" action="" method="post" class="form-horizontal">
                         <fieldset>
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <select name="cid" id="cid" class="form-control">
-                                        <option value="">选择类别</option>
-                                        <?php if(is_array($cate_lists)): $i = 0; $__LIST__ = $cate_lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>" <?php if($cid == $vo['id']): ?>selected="selected"<?php endif; ?> ><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+                                        <option value="">选择分类</option>
+                                        <?php if(is_array($cate_lists)): $i = 0; $__LIST__ = $cate_lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>" <?php if($vo['id'] == $topic['cid']): ?>selected="selected"<?php endif; ?> ><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                                     </select>
                                 </div>
                             </div>
-                            <input type="hidden"  name="coordinate" value="<?php echo ($coordinate); ?>">
                             <div class="form-group">
-                                <div class="col-md-8">
-                                    <input type="text" id="subject" name="subject" class="form-control" value="" placeholder="标题">
+                                <div class="col-md-6">
+                                    <input type="text" id="subject" name="subject" class="form-control input-lg" value="<?php echo ($topic["subject"]); ?>" placeholder="标题">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-6">
+                                <div class="col-md-6 hidden-xs">
                                     <script type="text/plain" id="editor" style="width:660px;height:350px;"></script>
                                 </div>
+                                <!-- <div class="col-md-8">
+                                    <textarea class="form-control" rows="15" cols="20" name="content"></textarea>
+                                </div> -->
                             </div>
                             <div class="form-group">
-                                <?php if(!empty($cid)): ?><input type="hidden" name="cid" value="<?php echo ($cid); ?>" ><?php endif; ?>
-                                <div class="col-md-6">
-                                    <button type="submit" class="btn btn-primary" id="create">创建</button>
+                                <div class="col-md-4">
+                                    <input  type="hidden" name="tid"  value="<?php echo ($topic["tid"]); ?>">
+                                    <button type="submit" class="btn btn-primary" id="create">更新</button>
                                 </div>
                             </div>
                         </fieldset>
@@ -162,55 +163,56 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
 <script src="__PUBLIC__/js/editor/umeditor.min.js"></script>
 <script src="__PUBLIC__/js/editor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
-$(function() {
-    var um = UM.getEditor('editor', {
-        toolbar: ['bold italic underline insertorderedlist insertunorderedlist  image '],
-        UEDITOR_HOME_URL: "__PUBLIC__/js/editor/",
-        imageUrl: "<?php echo U('topic/upload');?>",
-        imagePath: "__PUBLIC__/upload/attach/",
+    $(function() {
+        var um = UM.getEditor('editor', {
+            toolbar: ['bold italic underline insertorderedlist insertunorderedlist  image '],
+            UEDITOR_HOME_URL: "__PUBLIC__/js/editor/",
+            imageUrl: "<?php echo U('topic/upload');?>",
+            imagePath: "__PUBLIC__/upload/attach/",
 
-        autoClearinitialContent: true,
-        wordCount: false,
-        elementPathEnabled: false,
-        autoFloatEnabled: false,
+            autoClearinitialContent: true,
+            wordCount: false,
+            elementPathEnabled: false,
+            autoFloatEnabled: false,
 
-        textarea: 'content'
-    });
-
-    $('#talk-add').on('submit', function(e) {
-        e.preventDefault();
-        var cid = $('#cid').val();
-        var subject = $.trim($('#subject').val());
-        var content = UM.getEditor('editor').getPlainTxt();
-        if (cid == '') {
-            bootbox.alert('分类不能为空');
-            return false;
-        }
-        if (subject == '') {
-            bootbox.alert('标题不能为空');
-            return false;
-        }
-        if (content == false) {
-            bootbox.alert('内容不能为空');
-            return false;
-        }               
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "<?php echo U('topic/add');?>",
-            data: $("#talk-add").serialize(),
-            success: function(data){
-                if (data.status == 0) {
-                    bootbox.alert(data.info);
-                    return  false;
-                } else {
-                    window.location.href = data.url;
-                }
-
-            }
+            textarea: 'content'
         });
-    })
-});
+        um.setContent('<?php echo ($topic["content"]); ?>');
+
+        $('#talk-edit').on('submit', function(e) {
+            e.preventDefault();
+            var cid     =  $('#cid').val();
+            var subject =  $.trim($('#subject').val());
+            if (cid =='') {
+                bootbox.alert('分类不能为空');
+                return false;
+            }
+            if (subject == '') {
+                bootbox.alert('标题不能为空');
+                return false;
+            }
+            if (um.hasContents() == false) {
+                bootbox.alert('内容不能为空');
+                return false;
+            }
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "<?php echo U('topic/update');?>",
+                data: $("#talk-edit").serialize(),
+                success: function(data){
+                    if (data.status == 0) {
+                        bootbox.alert(data.info);
+                        return  false;
+                    } else {
+                        window.location.href = data.url;
+                    }
+
+                }
+            });
+        })
+    });
 </script>
 </body>
 </html>

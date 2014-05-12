@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 3.4.10.1
--- http://www.phpmyadmin.net
---
--- 主机: localhost
--- 生成日期: 2014 年 04 月 21 日 15:04
--- 服务器版本: 5.5.20
--- PHP 版本: 5.3.10
-
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -17,7 +8,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- 数据库: `talkpiece`
+-- 数据库: `Topic`
 --
 
 -- --------------------------------------------------------
@@ -88,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `talk_settings` (
 --
 
 INSERT INTO `talk_settings` (`id`, `type`, `value`) VALUES
-(1, 'site', 'a:5:{s:8:"web_name";s:21:"TalkPiece开源社区";s:12:"web_keywords";s:21:"TalkPiece垂直社区";s:7:"web_des";s:21:"TalkPiece垂直社区";s:13:"web_copyright";s:24:"Powered by TalkPiece 1.0";s:10:"web_statis";s:0:"";}'),
+(1, 'site', 'a:5:{s:8:"web_name";s:21:"Topic";s:12:"web_keywords";s:21:"Topic";s:7:"web_des";s:21:"Topic";s:13:"web_copyright";s:24:"基于LBS的可视化校园论坛";s:10:"web_statis";s:0:"";}'),
 (2, 'email', 'a:7:{s:10:"email_open";i:0;s:9:"smtp_host";s:0:"";s:9:"smtp_port";s:0:"";s:9:"smtp_user";s:0:"";s:8:"smtp_pwd";s:0:"";s:9:"from_name";s:0:"";s:10:"from_email";s:0:"";}');
 
 -- --------------------------------------------------------
@@ -109,6 +100,8 @@ CREATE TABLE IF NOT EXISTS `talk_topic` (
   `create_time` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `update_time` int(11) DEFAULT NULL,
+  coordinate text NOT NULL,
+  isPush boolean NOT NULL,
   PRIMARY KEY (`tid`),
   KEY `subject` (`subject`),
   KEY `uid` (`uid`)
@@ -215,3 +208,11 @@ CREATE TABLE IF NOT EXISTS `talk_user_token` (
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+CREATE TABLE IF NOT EXISTS `talk_deletelist` (
+  `tid` int(11) NOT NULL,
+  fordel boolean NOT NULL,
+  PRIMARY KEY (`tid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+

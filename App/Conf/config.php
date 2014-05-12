@@ -17,5 +17,8 @@ return array(
 	'TOKEN_ON'      => true,
 	'TOKEN_NAME'    => '_token',
 	'TOKEN_TYPE'    => 'md5',
-	'TOKEN_RESET'   => true
+	'TOKEN_RESET'   => true,
+		
+	
+	'SHOW_PAGE_TRACE' =>false, // 显示页面Trace信息
 );

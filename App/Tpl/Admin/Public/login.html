@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title>TalkPiece后台登录</title>
+		<title>{:echoName()}后台登录</title>
 		<link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
 		<link href="__PUBLIC__/css/admin.css" rel="stylesheet">
 	</head>
@@ -14,7 +14,7 @@
 			<div class="panel talk-login">
     	 		<form id="admin-login"  method="post" class="form-horizontal" action="{:U('admin/public/login')}">
     				<div class="panel-heading">
-					 	<h3>TalkPiece后台登录</h3>
+					 	<h3>{:echoName()}后台登录</h3>
 				    </div>
     				<div class="form-group">
     					<label for="email" class="col-md-2 control-label">邮箱：</label>

@@ -75,9 +75,9 @@
 			{
 				theIframe.window.location.href="http://" + location.hostname + "/index.php?m=topic&a=detail&tid=" + tid;
 			}
-			function newTopic()
+			function newTopic(cid,coordinate)
 			{
-				theIframe.window.location.href="http://" + location.hostname + "/index.php?m=topic&a=add&cid=" + cid;
+				theIframe.window.location.href="http://" + location.hostname + "/index.php?m=topic&a=add&cid=" + cid + "&coordinate=" + coordinate;
 			}
 			function myFunction(arg)
 			{

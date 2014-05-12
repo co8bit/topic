@@ -1,13 +1,5 @@
 <?php
-/**
- * TalkPiece  开源垂直社区
- *
- * @author     thinkphper <service@talkpiece.com>
- * @copyright  2014  talkpiece
- * @license    http://www.talkpiece.com/license
- * @version    1.0
- * @link       http://www.talkpiece.com
- */
+require_once(CONF_PATH."MyConfigINI.php");
 
 class TopicAction extends  BaseAction {
 
@@ -85,6 +77,22 @@ class TopicAction extends  BaseAction {
 			$cid      = I( 'post.cid', 0 , 'intval' );
 			$subject  = I( 'post.subject', '', 'safe' );
 			$content  = I( 'post.content', '', '' );
+			
+			$coordinate = $this->_post("coordinate");
+			if ( ($coordinate == "") || ($coordinate == null) )
+			{
+				switch($cid)
+				{
+					case 1:$coordinate = COORDINATE_1;break;
+					case 2:$coordinate = COORDINATE_2;break;
+					case 3:$coordinate = COORDINATE_3;break;
+					case 4:$coordinate = COORDINATE_4;break;
+					case 5:$coordinate = COORDINATE_5;break;
+					default:$coordinate = COORDINATE_DEFAULT;break;
+				}
+			}
+			//TODO:验证坐标是否正确
+			
 			empty( $cid ) &&  $this->error( '分类不能为空' );
 			empty( $subject ) && $this->error( '标题不能为空' );
 			empty( $content ) && $this->error( '内容不能为空' );
@@ -93,7 +101,7 @@ class TopicAction extends  BaseAction {
 			if ( str_strlen( $subject ) <= 2 ) {
 				$this->error( '标题太短了' );
 			}
-			$tid = D( 'Topic' )->insert( $cid, $this->mid, $subject, $content );
+			$tid = D( 'Topic' )->insert( $cid, $this->mid, $subject, $content, $coordinate);
 			if ( $tid ) {
 				$this->success( '创建成功', U( 'topic/detail', array( 'tid'=>$tid ) ) );
 			} else {
@@ -102,6 +110,8 @@ class TopicAction extends  BaseAction {
 		} else {
 			$cid = I( 'get.cid', 0, 'intval' );
 			$this->assign( 'cid', $cid );
+			
+			$this->assign("coordinate",$this->_get("coordinate"));
 
 			$cate_lists   = D('TopicCategory')->getAllCates();
 			if (empty($cate_lists)) {
@@ -188,6 +198,13 @@ class TopicAction extends  BaseAction {
 			$this->error( '你想访问的页面不存在' );
 		} else {
 			D( 'Topic' )->del( $tid, $topic );
+			
+			//加入删除表，为sync U3D服务器做准备
+			$data = null;
+			$data["tid"] = $tid;
+			$data["fordel"] = "";
+			D("Deletelist")->add($data);
+			
 			$this->success( '删除成功', U( 'Topic/index' ) );
 		}
 	}

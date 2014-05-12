@@ -5,7 +5,7 @@
  */
 function echoName()
 {
-	echo "LBSBBS";
+	echo "Topic";
 }
 
 

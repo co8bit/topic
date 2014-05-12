@@ -1,0 +1,9 @@
+<?php
+define("_SPECAL_BREAK_FLAG","!&*erszre@separator@$!");
+define("COORDINATE_1","0,0,0");
+define("COORDINATE_2","0,0,0");
+define("COORDINATE_3","0,0,0");
+define("COORDINATE_4","0,0,0");
+define("COORDINATE_5","0,0,0");
+define("COORDINATE_DEFAULT","1,1,1");
+?>

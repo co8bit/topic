@@ -1,17 +1,33 @@
 <?php
-/**
- * TalkPiece  开源垂直社区
- *
- * @author     thinkphper <service@talkpiece.com>
- * @copyright  2014  talkpiece
- * @license    http://www.talkpiece.com/license
- * @version    1.0
- * @link       http://www.talkpiece.com
- */
+
 
 class TopicModel  extends Model{
 	protected $tableName = 'topic';
 
+	/**
+	 * 同步帖子时取出帖子
+	 * @param	int $pageSize，一次取出的大小
+	 * @return	$re[i][] 第i个topic的数据
+	 */
+	public function getSyncTopic($pageSize = 50)
+	{
+		$result  = $this->where("status=1 and isPush=false" )->order( 'create_time desc' )->limit($pageSize)->select();
+		$result =  $this->getExtraTopic($result);
+		
+		//更新推送状态
+		$data["isPush"] = true;
+		$this->where("status=1 and isPush=false" )->order( 'create_time desc' )->limit($pageSize)->save($data);
+// 		$tid = null;
+// 		for ( $i = 0; $i < count($result); $i++ )
+// 		{
+// 			$data = null;
+// 			$data["tid"] = $result[$i]["tid"];
+// 			$data["isPush"] = true;
+// 			$this->save($data);
+// 		}
+		return $result;
+	}
+	
 	/**
 	 * 最新话题列表
 	 *
@@ -47,14 +63,15 @@ class TopicModel  extends Model{
 		return  $data;
 	}
 
-	public  function insert( $cid, $uid, $subject, $content ) {
+	public  function insert( $cid, $uid, $subject, $content,$coordinate ) {
 
 		$tid = $this->add( array(
 				'cid'         => $cid,
 				'uid'         => $uid,
 				'subject'     => $subject,
 				'create_time' => time(),
-				'update_time' => time()
+				'update_time' => time(),
+				'coordinate' => $coordinate
 			) );
 		if ( $tid ) {
 			D( 'User' )->getCredit( $uid, 'add_topic' );
