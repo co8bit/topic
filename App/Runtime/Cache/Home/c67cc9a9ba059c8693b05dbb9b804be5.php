@@ -13,6 +13,10 @@
 <link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
 <link href="__PUBLIC__/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="__PUBLIC__/css/font-awesome/css/font-awesome.min.css">
+
+<?php
+if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css" rel="stylesheet">'; } ?>
+
 <!--[if lt IE 9]>
 <script src="__PUBLIC__/js/html5.js"></script>
 <script src="__PUBLIC__/js/css3.js"></script>
@@ -96,6 +100,41 @@
 			</div>
 		</div>
 
+	</div>
+</div>
+<div id="message" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">发私信</h4>
+			</div>
+			<form id="send-message" class="form-horizontal">
+				<div class="modal-body">
+					<div class="form-group">
+						<div class="col-md-2 control-label"><label for="message_receiver" class="required">发给：</label></div>
+						<div class="col-md-8">
+							<input type="text" class="form-control"  value="<?php echo ($user_list['username']); ?>" disabled/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-2 control-label"><label>内容</label></div>
+						<div class="col-md-8">
+							<textarea id="content" name="content"  class="form-control" rows="5"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+					      <div class="col-md-offset-2 col-md-2">
+					      	<input type="hidden" name="touid" id="touid" value="<?php echo ($user_list['uid']); ?>">
+					        <button class="btn btn-primary" type="submit">发送</button>
+					      </div>
+					      <div class="col-md-4">
+					      		<div id="error"></div>
+					      </div>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 <a href="#" class="scroll-up hidden-xs">回到顶部</a>

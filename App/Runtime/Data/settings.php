@@ -1,1 +1,1 @@
-<?php	return array ( 'web_name' => 'LBSBBS', 'web_keywords' => 'LBSBBS', 'web_des' => 'LBSBBS', 'web_copyright' => '杭州冰软科技有限公司', 'web_statis' => '', 'email_open' => 0, 'smtp_host' => '', 'smtp_port' => '', 'smtp_user' => '', 'smtp_pwd' => '', 'from_name' => '', 'from_email' => '', );?>
+<?php	return array ( 'web_name' => 'Topic', 'web_keywords' => 'Topic', 'web_des' => 'Topic', 'web_copyright' => '杭州冰软科技有限公司', 'web_statis' => '', 'email_open' => 0, 'smtp_host' => '', 'smtp_port' => '', 'smtp_user' => '', 'smtp_pwd' => '', 'from_name' => '', 'from_email' => '', );?>

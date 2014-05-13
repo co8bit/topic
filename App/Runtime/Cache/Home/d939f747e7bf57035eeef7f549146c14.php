@@ -13,6 +13,10 @@
 <link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
 <link href="__PUBLIC__/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="__PUBLIC__/css/font-awesome/css/font-awesome.min.css">
+
+<?php
+if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css" rel="stylesheet">'; } ?>
+
 <!--[if lt IE 9]>
 <script src="__PUBLIC__/js/html5.js"></script>
 <script src="__PUBLIC__/js/css3.js"></script>
@@ -93,6 +97,41 @@
 					<?php if(!empty($fans["data"])): ?><ul class="media-list">						<?php if(is_array($fans["data"])): $i = 0; $__LIST__ = $fans["data"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$fan): $mod = ($i % 2 );++$i;?><li class="media">								<a class="pull-left" href="<?php echo U('user/index',array('uid'=>$fan['from_uid']));?>">									<img src="<?php echo uavatar($fan['from_uid']);?>" class="talk-avatar middle">								</a>								<div class="media-body">									<h4 class="media-heading"><a href="<?php echo U('user/index',array('uid'=>$fan['from_uid']));?>"><?php echo ($fan['username']); ?></a></h4>									<p><?php echo ($fan['intro']); ?></p>								</div>							</li><?php endforeach; endif; else: echo "" ;endif; ?>					</ul>					<?php else: ?>					还没有粉丝<?php endif; ?>					<?php if(!empty($fans['page'])): ?><div class="text-center">					        <?php echo ($fans['page']); ?>						</div><?php endif; ?>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+<div id="message" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">发私信</h4>
+			</div>
+			<form id="send-message" class="form-horizontal">
+				<div class="modal-body">
+					<div class="form-group">
+						<div class="col-md-2 control-label"><label for="message_receiver" class="required">发给：</label></div>
+						<div class="col-md-8">
+							<input type="text" class="form-control"  value="<?php echo ($user_list['username']); ?>" disabled/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-2 control-label"><label>内容</label></div>
+						<div class="col-md-8">
+							<textarea id="content" name="content"  class="form-control" rows="5"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+					      <div class="col-md-offset-2 col-md-2">
+					      	<input type="hidden" name="touid" id="touid" value="<?php echo ($user_list['uid']); ?>">
+					        <button class="btn btn-primary" type="submit">发送</button>
+					      </div>
+					      <div class="col-md-4">
+					      		<div id="error"></div>
+					      </div>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

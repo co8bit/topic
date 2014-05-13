@@ -3,7 +3,7 @@ class InstallAction extends Action{
 
 	protected function _initialize(){
 		if (file_exists(DATA_PATH .'install/install.lock')) {
-			$this->error('已经成功安装TalkPiece，请不要重复安装!');
+			$this->error('已经成功安装Topic，请不要重复安装!');
 		}
 	}
 	public  function  index(){

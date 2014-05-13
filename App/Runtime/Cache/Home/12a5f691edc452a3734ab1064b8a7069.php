@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <title>TalkPiece开源垂直社区 安装程序- Powered by TalkPiece</title>
+    <title><?php echo echoName();?> 安装程序</title>
     <link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="__PUBLIC__/css/font-awesome/css/font-awesome.min.css">
     <style type="text/css">
@@ -29,7 +29,7 @@
         <div class="row">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3>TalkPiece垂直社区安装向导</h3>
+                    <h3><?php echo echoName();?>安装向导</h3>
                 </div>
                 <div class="panel-body">
                     <ul class="nav nav-pills nav-justified talk-install">

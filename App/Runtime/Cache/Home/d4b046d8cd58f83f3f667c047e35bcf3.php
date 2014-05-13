@@ -13,6 +13,10 @@
 <link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
 <link href="__PUBLIC__/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="__PUBLIC__/css/font-awesome/css/font-awesome.min.css">
+
+<?php
+if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css" rel="stylesheet">'; } ?>
+
 <!--[if lt IE 9]>
 <script src="__PUBLIC__/js/html5.js"></script>
 <script src="__PUBLIC__/js/css3.js"></script>

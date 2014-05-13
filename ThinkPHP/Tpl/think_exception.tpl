@@ -47,7 +47,7 @@ h1{ font-size: 32px; line-height: 48px; }
 </div>
 </div>
 <div class="copyright">
-	<p><a href="">Powered by TalkPiece</a></p>
+	<p><a href="">Powered by Topic</a></p>
 </div>
 </body>
 </html>

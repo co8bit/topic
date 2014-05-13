@@ -1,13 +1,4 @@
 <?php
-/**
- * TalkPiece  开源垂直社区
- *
- * @author     thinkphper <service@talkpiece.com>
- * @copyright  2014  talkpiece
- * @license    http://www.talkpiece.com/license
- * @version    1.0
- * @link       http://www.talkpiece.com
- */
 
 class UserAction extends BaseAction {
 
@@ -16,8 +7,8 @@ class UserAction extends BaseAction {
 	 *
 	 * @return [type] [description]
 	 */
-	public function index() {
-
+	public function index() 
+	{
 		$this->getUserData( $this->mid, $this->uid );
 		$topic_lists = D( 'Topic' )->getRecentTopic( array( 'uid'=>$this->uid, 'status'=>1 ), 15 );
 		$this->assign( 'topic_lists', $topic_lists );
@@ -304,20 +295,22 @@ class UserAction extends BaseAction {
 	}
 
 	public function getUserData($mid, $uid ) {
-
 		$user_list = D( 'User' )->where(array('uid'=>$uid))->find();		if (!$user_list) {			$this->error('你访问的页面不存在');		}
 		if ( $mid !== $uid ) {
 			$is_follow = D( 'UserFollow' )->checkFollow( $this->mid, $uid );
 		}
 		$this->assign( 'is_follow', $is_follow );
-
+		
 		$fans      = D( 'UserFollow' )->getUserFan( $uid );
 		$followers = D( 'UserFollow' )->getUserFollow( $uid );
 
-		$fans_num =  D( 'UserFollow' )->getFansNum( $uid );		$followers_num = D( 'UserFollow' )->getFollowNum( $uid );		$this->assign( 'fans_num',  $fans_num);		$this->assign( 'followers_num', $followers_num);
+		$fans_num =  D( 'UserFollow' )->getFansNum( $uid );
+		
+		$followers_num = D( 'UserFollow' )->getFollowNum( $uid );		$this->assign( 'fans_num',  $fans_num);		$this->assign( 'followers_num', $followers_num);
 		$this->assign( 'fans', $fans );
 		$this->assign( 'followers', $followers );
 		$this->assign('title', $user_list['username'] .'个人主页');
+		$this->assign("user_list",$user_list);
 	}
 
 }

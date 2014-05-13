@@ -13,6 +13,10 @@
 <link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet">
 <link href="__PUBLIC__/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="__PUBLIC__/css/font-awesome/css/font-awesome.min.css">
+
+<?php
+if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css" rel="stylesheet">'; } ?>
+
 <!--[if lt IE 9]>
 <script src="__PUBLIC__/js/html5.js"></script>
 <script src="__PUBLIC__/js/css3.js"></script>
@@ -23,8 +27,14 @@
 <div class="navbar navbar-default navbar-static-top">
 	<div class="container">
 		<div class="navbar-header">
-			
+			<button type="button" class="navbar-toggle needsclick" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 			<a class="navbar-brand" href="<?php echo U('topic/index');?>"><?php echo echoName();?></a>
+		</div>
+	    <div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="<?php echo U('topic/index');?>">浙大紫金港</a></li>
 			</ul>
@@ -62,8 +72,7 @@
 					<li><a href="<?php echo U('user/signup');?>">注册</a></li>
 					<li><a href="<?php echo U('user/login');?>">登录</a></li><?php endif; ?>
 			</ul>
-		</div>
-		
+	    </div>
 	</div>
 </div>
 

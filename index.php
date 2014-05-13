@@ -1,13 +1,4 @@
 <?php
-/**
- * TalkPiece  开源社区
- *
- * @author     thinkphper <service@talkpiece.com>
- * @copyright  2014  talkpiece
- * @license    http://www.talkpiece.com/license
- * @version    1.0
- * @link       http://www.talkpiece.com
- */
 
 /**
  * 系统调试设置
