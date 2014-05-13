@@ -21,7 +21,7 @@ class BaseAction extends Action{
 			$user  = D('User')->where(array('uid'=>$this->mid))->find();	
 			$this->assign('user', $user) ;
 		}
-		
+// 		dump($user);
 		$this->assign('mid', $this->mid);
 		$this->assign('uid', $this->uid);
 		$this->assign('settings', $settings);

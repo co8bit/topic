@@ -47,7 +47,7 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
 					<li class="notify">
 						<a href="<?php echo U('message/notify');?>">
 							<i class="fa fa-bell"></i>
-							<?php if(($user["at_num"]) > "0"): ?><span class="badge" id="notify"><?php echo ($user["at_num"]); ?></span><?php endif; ?>
+								<?php if(($user["at_num"]) > "0"): ?><span class="badge" id="notify"><?php echo ($user["at_num"]); ?></span><?php endif; ?>
 						</a>
 					</li>
 					<li class="inbox">

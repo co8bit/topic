@@ -47,7 +47,7 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
 					<li class="notify">
 						<a href="<?php echo U('message/notify');?>">
 							<i class="fa fa-bell"></i>
-								<?php if(($user["at_num"]) > "0"): ?><span class="badge"  id="notify" ><?php echo ($user["at_num"]); ?></span><?php endif; ?>
+							<?php if(($user["at_num"]) > "0"): ?><span class="badge" id="notify"><?php echo ($user["at_num"]); ?></span><?php endif; ?>
 						</a>
 					</li>
 					<li class="inbox">
@@ -77,77 +77,48 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
 </div>
 
 
-
 <div class="container">
     <div class="row">
         <ol class="breadcrumb">
-            <li class="active">话题</li>
+            <li><a href="<?php echo U('topic');?>">话题</a></li>
+            <li class="active"><?php echo ($category['name']); ?></li>
         </ol>
         <div class="col-md-9">
-            <div class="panel panel-default">
-                <?php if(!empty($stick_topics)): ?><div class="panel-heading">推荐话题</div>
+            <div class="panel panel-defaul">
+                <div class="panel-heading">
+                    <?php echo ($category['des']); ?>
+                </div>
                 <div class="panel-body">
-                    <ul class="media-list talk-topic">
-                        <?php if(is_array($stick_topics)): $i = 0; $__LIST__ = $stick_topics;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$stick): $mod = ($i % 2 );++$i;?><li class="media">
-                                <a href="<?php echo U('user/index', array('uid'=>$stick['uid']));?>" class="pull-left">
-                                   <img src="<?php echo uavatar($stick['uid']);?>" class="talk-avatar middle">
-                                </a>
-                                <div class="media-body">
-                                    <?php if(($stick["post_num"]) > "0"): ?><div class="badge pull-right"><?php echo ($stick['post_num']); ?></div><?php endif; ?>
-                                    <h4 class="media-heading">
-                                        <a href="<?php echo U('topic/detail', array('tid'=>$stick['tid']));?>"> <?php echo ($stick['subject']); ?></a>
-                                    </h4>
-                                    <div class="extra">
-                                        <span class="category">
-                                           <a href="<?php echo U('topic/category', array('cid'=>$stick['cid']));?>"><?php echo ($stick['cate_list']['name']); ?></a>
-                                        </span>
-                                        <span class="slant">•</span>
-                                        <span class="username">
-                                           <a href="<?php echo U('user/index', array('uid'=>$stick['uid']));?>"><?php echo ($stick['username']); ?></a>
-                                        </span>
-                                        <span class="slant">•</span>
-                                        <small class="timeago" original-title="">发布于 <?php echo friendly_date($stick['create_time']);?></small>
-                                    </div>
-                                </div>
-                            </li><?php endforeach; endif; else: echo "" ;endif; ?>
-                    </ul>
-                </div><?php endif; ?>
-                <div class="panel-heading">最新话题</div>
-                <div class="panel-body">
-                    <?php if(!empty($topics["data"])): ?><ul class="media-list talk-topic">
-                        <?php if(is_array($topics["data"])): $i = 0; $__LIST__ = $topics["data"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="media">
+                    <?php if(!empty($topic['data'])): ?><ul class="media-list talk-topic">
+                        <?php if(is_array($topic["data"])): $i = 0; $__LIST__ = $topic["data"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li class="media">
                             <a href="<?php echo U('user/index', array('uid'=>$vo['uid']));?>" class="pull-left">
-                               <img src="<?php echo uavatar($vo['uid']);?>" class="talk-avatar middle">
+                               <img src="<?php echo uavatar($vo['uid']);?>" class="talk-avatar" width="50" height="50">
                             </a>
                             <div class="media-body">
-                                <?php if(($vo["post_num"]) > "0"): ?><div class="badge pull-right"><?php echo ($vo['post_num']); ?></div><?php endif; ?>
+                                <div class="badge pull-right"><?php echo ($vo['post_num']); ?></div>
                                 <h4 class="media-heading"><a href="<?php echo U('topic/detail', array('tid'=>$vo['tid']));?>"> <?php echo ($vo['subject']); ?></a></h4>
                                 <div class="extra">
-                                    <span class="category">
-                                       <a href="<?php echo U('topic/category', array('cid'=>$vo['cid']));?>"><?php echo ($vo['cate_list']['name']); ?></a>
-                                    </span>
-                                    <span class="slant">•</span>
                                     <span class="username">
                                        <a href="<?php echo U('user/index', array('uid'=>$vo['uid']));?>"><?php echo ($vo['username']); ?></a>
                                     </span>
                                     <span class="slant">•</span>
-                                    <small class="timeago" original-title="">发布于 <?php echo friendly_date($vo['create_time']);?></small>
+                                    <span class="timeago" original-title="">发布于 <?php echo friendly_date($vo['create_time']);?></span>
                                 </div>
                             </div>
                         </li><?php endforeach; endif; else: echo "" ;endif; ?>
                     </ul>
-                    <div class="text-center">
-                        <?php echo ($topics['page']); ?>
-                    </div>
                     <?php else: ?>
-                        <span>还没有话题</span><?php endif; ?>
+                        <p class="text-center">Ooops, 没有找到话题</p><?php endif; ?>
+                    <?php if(!empty($topic_lists['page'])): ?><div class="text-center">
+                            <?php echo ($topic_lists['page']); ?>
+                        </div><?php endif; ?>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <?php if(($mid) > "0"): ?><div class="panel">
                 <div class="panel-body text-center">
-                    <a href="<?php echo U('topic/add');?>" class="btn btn-success btn-block">发表新话题</a>
+                    <a href="<?php echo U('topic/add',array('cid'=>$cid));?>" class="btn btn-success btn-block">发表新话题</a>
                 </div>
             </div><?php endif; ?>
             <div class="panel">
@@ -155,14 +126,13 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
                     全部类别
                 </div>
                 <div class="panel-body">
-                    <?php if(!empty($cate_lists)): ?><ul class="nav nav-pills nav-stacked">
-                        <?php if(is_array($cate_lists)): $i = 0; $__LIST__ = $cate_lists;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><li>
-                               <a href="<?php echo U('topic/category',array('cid'=>$vo['id']));?>"><?php echo ($vo['name']); ?></a>
-                            </li><?php endforeach; endif; else: echo "" ;endif; ?>
+                    <ul class="nav nav-pills nav-stacked">
+                        <?php if(is_array($cate_lists)): foreach($cate_lists as $key=>$vo): ?><li <?php if($vo['id'] == $cid): ?>class="active"<?php endif; ?> >
+                                <a href="<?php echo U('topic/category',array('cid'=>$vo['id']));?>"><?php echo ($vo['name']); ?></a>
+                            </li><?php endforeach; endif; ?>
                     </ul>
-                    <?php else: ?>
-                    <span>无类别区分</span><?php endif; ?>
                 </div>
+
             </div>
         </div>
     </div>
@@ -185,31 +155,6 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
 <script  src="__PUBLIC__/js/jquery.tmpl.js"></script>
 <script  src="__PUBLIC__/js/main.js"></script>
 <?php if(($mid) > "0"): ?><script>
-	$(document).ready(function(){
-		tag1 = true;
-		tag2 = true;
-		where = window.location.search;
-		if ( (where[3] == "m")&&(where[4] == "e")&&(where[5] == "s")&&(where[6] == "s")&&(where[7] == "a")&&
-				(where[8] == "g")&&(where[9] == "e")&&(where[13] == "n")&&(where[14] == "o")&&(where[15] == "t")
-				&&(where[16] == "i")&&(where[17] == "f")&&(where[18] == "y") )
-		{
-			tag1 = false;
-		}
-		if ( (where[3] == "m")&&(where[4] == "e")&&(where[5] == "s")&&(where[6] == "s")&&(where[7] == "a")&&
-				(where[8] == "g")&&(where[9] == "e")&&(where[13] == "i")&&(where[14] == "n")&&(where[15] == "d")
-				&&(where[16] == "e")&&(where[17] == "x") )
-		{
-			tag2 = false;
-		}
-		if ( (<?php echo ($user["at_num"]); ?> >0) && (tag1) )
-		{
-	 		$('#notify').show().text(<?php echo ($user["at_num"]); ?>);
-	 	} 
-	 	if ( (<?php echo ($user["inbox_num"]); ?> >0) && (tag2) )
-	 	{
-	 		$('#inbox').show().text(<?php echo ($user["inbox_num"]); ?>);
-	 	}
-	});
 	$(function(){
 		var getUnread =  function(){
 			$.get("<?php echo U('message/unread');?>", function(data){
@@ -219,15 +164,11 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
 			 	if (data.inbox_num >0) {
 			 		$('#inbox').show().text(data.inbox_num);
 			 	}
+			 	
 			},'json');
 		};
-		setInterval(getUnread, 20000);
+		setInterval(getUnread, 50000);
 	});
-</script><?php endif; ?>
-<?php if(($mid) > "0"): ?><script>
-$(document).ready(function(){
-	self.parent.myFunction('<?php echo ($user["username"]); ?>');
-});
 </script><?php endif; ?>
 </body>
 </html>
