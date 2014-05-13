@@ -667,7 +667,7 @@ function cookie($name, $value='', $option=null) {
     if ('' === $value) {
         if(isset($_COOKIE[$name])){
             $value =    $_COOKIE[$name];
-            if(0===strpos($value,'talkpiece:')){
+            if(0===strpos($value,'Topic:')){
                 $value  =   substr($value,6);
                 return array_map('urldecode',json_decode(MAGIC_QUOTES_GPC?stripslashes($value):$value,true));
             }else{
@@ -683,7 +683,7 @@ function cookie($name, $value='', $option=null) {
         } else {
             // 设置cookie
             if(is_array($value)){
-                $value  = 'talkpiece:'.json_encode(array_map('urlencode',$value));
+                $value  = 'Topic:'.json_encode(array_map('urlencode',$value));
             }
             $expire = !empty($config['expire']) ? time() + intval($config['expire']) : 0;
             setcookie($name, $value, $expire, $config['path'], $config['domain']);

@@ -70,7 +70,7 @@ class UserAction extends BaseAction {
 			$user =  $User->login( $email, $password );
 			if ( $user ) {
 				if ($is_remember ==1) {
-					cookie( 'talkpiece_uid', authcode($user['uid'], 'ENCODE'), time() + 3600*24*7 );
+					cookie( 'Topic_uid', authcode($user['uid'], 'ENCODE'), time() + 3600*24*7 );
 				}
 				$this->success('登录成功', U('topic/index'));
 			} else {
@@ -206,7 +206,7 @@ class UserAction extends BaseAction {
 			session( 'user_auth', null );
 			session( 'user_auth_sign', null );
 			session('[destroy]');
-			cookie('talkpiece_uid', null);
+			cookie('Topic_uid', null);
             $this->redirect('topic/index');
         } else {
             $this->redirect('login');

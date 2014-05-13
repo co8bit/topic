@@ -10,7 +10,7 @@ class BaseAction extends Action{
 		}
 		C($settings);
 
-		$cookie_uid = authcode(I('cookie.talkpiece_uid'),'DECODE');
+		$cookie_uid = authcode(I('cookie.Topic_uid'),'DECODE');
 		if($cookie_uid >0 ){
 			$user = D('User')->where(array('uid'=>$cookie_uid))->find();
 			D('User')->autoLogin($user);

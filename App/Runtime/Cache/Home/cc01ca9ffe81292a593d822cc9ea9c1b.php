@@ -47,15 +47,13 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
 					<li class="notify">
 						<a href="<?php echo U('message/notify');?>">
 							<i class="fa fa-bell"></i>
-							<?php
- if ($user["at_num"] > 0) echo '<span class="badge" id="notify">'.$user["at_num"].'</span>'; ?>
+								<?php if(($user["at_num"]) > "0"): ?><span class="badge"  id="notify" ><?php echo ($user["at_num"]); ?></span><?php endif; ?>
 						</a>
 					</li>
 					<li class="inbox">
 						<a href="<?php echo U('message/index');?>">
 							<i class="fa fa-envelope-o"></i>
-							<?php
- if ($user["inbox_num"] > 0) echo '<span class="badge" id="notify">'.$user["inbox_num"].'</span>'; ?>
+							<?php if(($user["inbox_num"]) > "0"): ?><span class="badge" id="inbox"><?php echo ($user["inbox_num"]); ?></span><?php endif; ?>
 						</a>
 					</li>
 					<li class="dropdown">
@@ -144,6 +142,31 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
 <script  src="__PUBLIC__/js/jquery.tmpl.js"></script>
 <script  src="__PUBLIC__/js/main.js"></script>
 <?php if(($mid) > "0"): ?><script>
+	$(document).ready(function(){
+		tag1 = true;
+		tag2 = true;
+		where = window.location.search;
+		if ( (where[3] == "m")&&(where[4] == "e")&&(where[5] == "s")&&(where[6] == "s")&&(where[7] == "a")&&
+				(where[8] == "g")&&(where[9] == "e")&&(where[13] == "n")&&(where[14] == "o")&&(where[15] == "t")
+				&&(where[16] == "i")&&(where[17] == "f")&&(where[18] == "y") )
+		{
+			tag1 = false;
+		}
+		if ( (where[3] == "m")&&(where[4] == "e")&&(where[5] == "s")&&(where[6] == "s")&&(where[7] == "a")&&
+				(where[8] == "g")&&(where[9] == "e")&&(where[13] == "i")&&(where[14] == "n")&&(where[15] == "d")
+				&&(where[16] == "e")&&(where[17] == "x") )
+		{
+			tag2 = false;
+		}
+		if ( (<?php echo ($user["at_num"]); ?> >0) && (tag1) )
+		{
+	 		$('#notify').show().text(<?php echo ($user["at_num"]); ?>);
+	 	} 
+	 	if ( (<?php echo ($user["inbox_num"]); ?> >0) && (tag2) )
+	 	{
+	 		$('#inbox').show().text(<?php echo ($user["inbox_num"]); ?>);
+	 	}
+	});
 	$(function(){
 		var getUnread =  function(){
 			$.get("<?php echo U('message/unread');?>", function(data){
@@ -153,10 +176,9 @@ if (!isMobile()) { echo '<link href="__PUBLIC__/bootstrap/css/non-responsive.css
 			 	if (data.inbox_num >0) {
 			 		$('#inbox').show().text(data.inbox_num);
 			 	}
-			 	
 			},'json');
 		};
-		setInterval(getUnread, 50000);
+		setInterval(getUnread, 20000);
 	});
 </script><?php endif; ?>
 

@@ -125,6 +125,11 @@ CREATE TABLE IF NOT EXISTS `talk_topic_category` (
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+INSERT INTO `talk_topic_category` VALUES (1,0,"教学区",0,0,1,"教学区板块",1399793461,1);
+INSERT INTO `talk_topic_category` VALUES (2,0,"宿舍区",0,0,2,"宿舍区板块",1399793461,1);
+INSERT INTO `talk_topic_category` VALUES (3,0,"食堂",0,0,3,"食堂板块",1399793461,1);
+INSERT INTO `talk_topic_category` VALUES (4,0,"失物招领",0,0,4,"失物招领板块",1399793461,1);
+INSERT INTO `talk_topic_category` VALUES (5,0,"社团活动",0,0,5,"社团活动板块",1399793461,1);
 
 -- --------------------------------------------------------
 

@@ -1,7 +1,7 @@
 <?php
 return array(
 	'DEFAULT_MODULE'       => 'Topic',
-	'AUTH_CODE'            => 'talkpiece',
+	'AUTH_CODE'            => 'TopicByCo8bit',
 	'URL_CASE_INSENSITIVE' => true,
 	'VAR_PAGE'             => 'page',
 	'URL_MODEL'            => 0,

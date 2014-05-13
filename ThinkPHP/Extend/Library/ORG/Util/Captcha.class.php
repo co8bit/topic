@@ -1,13 +1,4 @@
 <?php
-/**
- * TalkPiece  开源社区
- *  验证码
- * @author     talkpiece <service@talkpiece.com>
- * @copyright  2014  talkpiece
- * @license    http://www.talkpiece.com/license
- * @version    1.0
- * @link       http://www.talkpiece.com
- */
 
 class Captcha {
 
