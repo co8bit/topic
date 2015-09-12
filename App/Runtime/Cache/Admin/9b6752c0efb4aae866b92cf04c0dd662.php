@@ -65,34 +65,40 @@
     </ul>
 </div>
             <div class="col-sm-11  col-md-10 main">
-                <h1 class="page-header">分类列表</h1>
-                <ul class="nav nav-tabs" style="margin-bottom: 35px;">
-                    <li class="active"><a href="#">分类列表</a></li>
-                    <li><a href="<?php echo U('topic/addCate');?>">添加分类</a></li>
-                </ul>
+                <h1 class="page-header">话题列表</h1>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>分类名称</th>
-                            <th>显示顺序</th>
+                            <th>标题</th>
+                            <th>作者</th>
                             <th>创建时间</th>
-                            <th>操作</th>  
+                            <td>回复列表</td>
+                            <td>推荐</td>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if(is_array($category)): $i = 0; $__LIST__ = $category;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$cate): $mod = ($i % 2 );++$i;?><tr>
-                            <td><?php echo ($cate["id"]); ?></td>
-                            <td><?php echo ($cate["name"]); ?></td>
-                            <td><?php echo ($cate["view_sort"]); ?></td>
-                            <td><?php echo friendly_date($cate['create_time']);?></td>
+                        <?php if(is_array($topics["data"])): $i = 0; $__LIST__ = $topics["data"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$topic): $mod = ($i % 2 );++$i;?><tr>
+                            <td><?php echo ($topic["tid"]); ?></td>
+                            <td><a href="<?php echo U('home/topic/detail', array('tid'=>$topic['tid']));?>" target="_blank"><?php echo ($topic["subject"]); ?></a></td>
+                            <td><?php echo ($topic["username"]); ?></td>
+                            <td><?php echo friendly_date($topic['create_time']);?></td>
+                            <td><a href="<?php echo U('topic/posts',array('tid'=>$topic['tid']));?>">查看回复</a></td>
                             <td>
-                                <a href="<?php echo U('topic/editCate',array('id'=>$cate['id']));?>"><i class="fa fa-pencil-square-o"></i></a>&nbsp;
-                                <a href="<?php echo U('topic/delCate',array('id'=>$cate['id']));?>"><i class="fa fa-trash-o"></i></a>         
+                                <?php if(($topic["is_stick"]) == "1"): ?><a href="<?php echo U('topic/unstick',array('tid'=>$topic['tid']));?>">取消推荐</a>
+                                <?php else: ?>
+                                    <a href="<?php echo U('topic/stick',array('tid'=>$topic['tid']));?>">推荐</a><?php endif; ?>
+                            </td>
+                            <td>
+                                <a href="<?php echo U('topic/del',array('tid'=>$topic['tid']));?>"><i class="fa fa-trash-o"></i></a>
                             </td>
                         </tr><?php endforeach; endif; else: echo "" ;endif; ?>
                     </tbody>
                 </table>
+                <div class="text-center">
+                    <?php echo ($topics["page"]); ?>
+                </div>
             </div>
         </div>
     </div>
